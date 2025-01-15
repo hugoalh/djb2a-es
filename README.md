@@ -100,6 +100,6 @@ An ES (JavaScript & TypeScript) CLI and module to get the non-cryptographic hash
 ## ✍️ Examples
 
 - ```ts
-  new DJB2a("hello").hashHexPadding(), 178056679n
+  new DJB2a("hello").hashHexPadding();
   //=> "0A9CEDE7"
   ```
