@@ -1,7 +1,7 @@
 const bitClamp: bigint = 2n ** 32n - 1n;
 export type DJB2aAcceptDataType = string | BigUint64Array | Uint8Array | Uint16Array | Uint32Array;
 /**
- * Get the non-cryptographic hash of the data with algorithm DJB2a.
+ * Get the non-cryptographic hash of the data with algorithm DJB2a (32 bits).
  */
 export class DJB2a {
 	#bin: bigint = 5381n;
