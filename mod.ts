@@ -1,7 +1,7 @@
 const bitClamp: bigint = 2n ** 32n - 1n;
 export type DJB2aAcceptDataType = string | BigUint64Array | Uint8Array | Uint16Array | Uint32Array;
 /**
- * Get the checksum of the data with algorithm DJB2a.
+ * Get the non-cryptographic hash of the data with algorithm DJB2a.
  */
 export class DJB2a {
 	#bin: bigint = 5381n;
@@ -16,7 +16,7 @@ export class DJB2a {
 		}
 	}
 	/**
-	 * Get the checksum of the data, in big integer.
+	 * Get the non-cryptographic hash of the data, in big integer.
 	 * @returns {bigint}
 	 */
 	hash(): bigint {
@@ -26,42 +26,42 @@ export class DJB2a {
 		return this.#hash;
 	}
 	/**
-	 * Get the checksum of the data, in Base16.
+	 * Get the non-cryptographic hash of the data, in Base16.
 	 * @returns {string}
 	 */
 	hashBase16(): string {
 		return this.hashNumber().toString(16).toUpperCase();
 	}
 	/**
-	 * Get the checksum of the data, in Base32Hex ({@link https://datatracker.ietf.org/doc/html/rfc4648#section-7 RFC 4648 §7}).
+	 * Get the non-cryptographic hash of the data, in Base32Hex ({@link https://datatracker.ietf.org/doc/html/rfc4648#section-7 RFC 4648 §7}).
 	 * @returns {string}
 	 */
 	hashBase32Hex(): string {
 		return this.hashNumber().toString(32).toUpperCase();
 	}
 	/**
-	 * Get the checksum of the data, in Base36.
+	 * Get the non-cryptographic hash of the data, in Base36.
 	 * @returns {string}
 	 */
 	hashBase36(): string {
 		return this.hashNumber().toString(36).toUpperCase();
 	}
 	/**
-	 * Get the checksum of the data, in hex/hexadecimal without padding.
+	 * Get the non-cryptographic hash of the data, in hex/hexadecimal without padding.
 	 * @returns {string}
 	 */
 	hashHex(): string {
 		return this.hashBase16();
 	}
 	/**
-	 * Get the checksum of the data, in hex/hexadecimal with padding.
+	 * Get the non-cryptographic hash of the data, in hex/hexadecimal with padding.
 	 * @returns {string}
 	 */
 	hashHexPadding(): string {
 		return this.hashHex().padStart(8, "0");
 	}
 	/**
-	 * Get the checksum of the data, in number.
+	 * Get the non-cryptographic hash of the data, in number.
 	 * @returns {number}
 	 */
 	hashNumber(): number {

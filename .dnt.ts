@@ -21,7 +21,7 @@ await invokeDenoNodeJSTransformer({
 	metadata: {
 		name: configJSR.getName(),
 		version: configJSR.getVersion(),
-		description: "A CLI and module to get the checksum of the data with algorithm DJB2a.",
+		description: "A CLI and module to get the non-cryptographic hash of the data with algorithm DJB2a.",
 		keywords: [
 			"djb2a"
 		],
