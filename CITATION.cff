@@ -9,6 +9,7 @@ repository-code: "https://github.com/hugoalh/djb2a-es"
 keywords:
   - "djb2a"
   - "es"
+  - "hash"
   - "javascript"
   - "js"
   - "modulejs"

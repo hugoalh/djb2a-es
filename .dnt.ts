@@ -23,7 +23,8 @@ await invokeDenoNodeJSTransformer({
 		version: configJSR.getVersion(),
 		description: "A CLI and module to get the non-cryptographic hash of the data with algorithm DJB2a.",
 		keywords: [
-			"djb2a"
+			"djb2a",
+			"hash"
 		],
 		homepage: "https://github.com/hugoalh/djb2a-es#readme",
 		bugs: {
