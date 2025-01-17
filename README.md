@@ -60,8 +60,8 @@ Currently, only 32 bits is supported.
 - ```ts
   class DJB2a {
     constructor(data?: DJB2aAcceptDataType);
-    freeze(): this;
     get freezed(): boolean;
+    freeze(): this;
     hash(): bigint;
     hashBase16(): string;
     hashBase32Hex(): string;
