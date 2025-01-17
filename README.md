@@ -60,6 +60,8 @@ Currently, only 32 bits is supported.
 - ```ts
   class DJB2a {
     constructor(data?: DJB2aAcceptDataType);
+    freeze(): this;
+    get freezed(): boolean;
     hash(): bigint;
     hashBase16(): string;
     hashBase32Hex(): string;
@@ -69,8 +71,6 @@ Currently, only 32 bits is supported.
     hashHexPadding(): string;
     hashNumber(): number;
     update(data: DJB2aAcceptDataType): this;
-    static fromFile(filePath: string | URL): Promise<DJB2a>;
-    static fromFileSync(filePath: string | URL): DJB2a;
     static fromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<DJB2a>;
   }
   ```

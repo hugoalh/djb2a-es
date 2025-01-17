@@ -4,8 +4,12 @@ export type DJB2aAcceptDataType = string | BigUint64Array | Uint8Array | Uint16A
  * Get the non-cryptographic hash of the data with algorithm DJB2a (32 bits).
  */
 export class DJB2a {
-	#bin: bigint = 5381n;
+	get [Symbol.toStringTag](): string {
+		return "DJB2a";
+	}
+	#freezed: boolean = false;
 	#hash: bigint | null = null;
+	#bin: bigint = 5381n;
 	/**
 	 * Initialize.
 	 * @param {DJB2aAcceptDataType} [data] Data. Can append later via the method {@linkcode DJB2a.update}.
@@ -14,6 +18,21 @@ export class DJB2a {
 		if (typeof data !== "undefined") {
 			this.update(data);
 		}
+	}
+	/**
+	 * Freeze the instance to prevent any update.
+	 * @returns {this}
+	 */
+	freeze(): this {
+		this.#freezed = true;
+		return this;
+	}
+	/**
+	 * Whether the instance is freezed.
+	 * @returns {boolean}
+	 */
+	get freezed(): boolean {
+		return this.#freezed;
 	}
 	/**
 	 * Get the non-cryptographic hash of the data, in original format.
@@ -85,6 +104,9 @@ export class DJB2a {
 	 * @returns {this}
 	 */
 	update(data: DJB2aAcceptDataType): this {
+		if (this.#freezed) {
+			throw new Error(`Instance is freezed!`);
+		}
 		this.#hash = null;
 		const raw: string = (typeof data === "string") ? data : new TextDecoder().decode(data);
 		for (let index: number = 0; index < raw.length; index += 1) {
@@ -93,34 +115,7 @@ export class DJB2a {
 		return this;
 	}
 	/**
-	 * Initialize from file, asynchronously.
-	 * 
-	 * > **🛡️ Runtime Permissions**
-	 * > 
-	 * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
-	 * >   - *Resources*
-	 * @param {string | URL} filePath Path of the file.
-	 * @returns {Promise<DJB2a>}
-	 */
-	static async fromFile(filePath: string | URL): Promise<DJB2a> {
-		using file: Deno.FsFile = await Deno.open(filePath);
-		return await this.fromStream(file.readable);
-	}
-	/**
-	 * Initialize from file, synchronously.
-	 * 
-	 * > **🛡️ Runtime Permissions**
-	 * > 
-	 * > - File System - Read \[Deno: `read`; NodeJS (>= v20.9.0) 🧪: `fs-read`\]
-	 * >   - *Resources*
-	 * @param {string | URL} filePath Path of the file.
-	 * @returns {DJB2a}
-	 */
-	static fromFileSync(filePath: string | URL): DJB2a {
-		return new this(Deno.readFileSync(filePath));
-	}
-	/**
-	 * Initialize from readable stream, asynchronously.
+	 * Initialize from the readable stream, asynchronously.
 	 * @param {ReadableStream<DJB2aAcceptDataType>} stream Readable stream.
 	 * @returns {Promise<DJB2a>}
 	 */

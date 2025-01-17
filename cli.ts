@@ -24,7 +24,8 @@ if (fromFile) {
 	if (argsValues.length !== 1) {
 		throw new SyntaxError(`Too many arguments! Expect: 1; Current: ${argsValues.length}.`);
 	}
-	console.log((await DJB2a.fromFile(argsValues[0])).hashHexPadding());
+	using file: Deno.FsFile = await Deno.open(argsValues[0]);
+	console.log((await DJB2a.fromStream(file.readable)).hashHexPadding());
 } else if (fromStdin) {
 	if (argsValues.length !== 0) {
 		throw new SyntaxError(`Too many arguments! Expect: 0; Current: ${argsValues.length}.`);
