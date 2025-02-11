@@ -114,7 +114,7 @@ export class DJB2a {
 		return this;
 	}
 	/**
-	 * Initialize from the readable stream, asynchronously.
+	 * Initialize from the readable stream.
 	 * @param {ReadableStream<DJB2aAcceptDataType>} stream Readable stream.
 	 * @returns {Promise<DJB2a>}
 	 */
