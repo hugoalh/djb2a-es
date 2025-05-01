@@ -6,7 +6,7 @@
 [![JSR: @hugoalh/djb2a](https://img.shields.io/jsr/v/@hugoalh/djb2a?label=@hugoalh/djb2a&labelColor=F7DF1E&logo=jsr&logoColor=000000&style=flat "JSR: @hugoalh/djb2a")](https://jsr.io/@hugoalh/djb2a)
 [![NPM: @hugoalh/djb2a](https://img.shields.io/npm/v/@hugoalh/djb2a?label=@hugoalh/djb2a&labelColor=CB3837&logo=npm&logoColor=ffffff&style=flat "NPM: @hugoalh/djb2a")](https://www.npmjs.com/package/@hugoalh/djb2a)
 
-An ES (JavaScript & TypeScript) CLI and module to get the non-cryptographic hash of the data with algorithm DJB2a.
+An ECMAScript (JavaScript & TypeScript) CLI and module to get the non-cryptographic hash of the data with algorithm DJB2a.
 
 Currently, only 32 bits is supported.
 
