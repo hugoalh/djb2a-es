@@ -3,7 +3,6 @@
 	"name": "@hugoalh/djb2a",
 	"version": "0.1.0",
 	"exports": {
-		"./cli": "./cli.ts",
 		".": "./mod.ts"
 	},
 	"imports": {

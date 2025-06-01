@@ -6,7 +6,7 @@
 [![JSR: @hugoalh/djb2a](https://img.shields.io/jsr/v/@hugoalh/djb2a?label=@hugoalh/djb2a&labelColor=F7DF1E&logo=jsr&logoColor=000000&style=flat "JSR: @hugoalh/djb2a")](https://jsr.io/@hugoalh/djb2a)
 [![NPM: @hugoalh/djb2a](https://img.shields.io/npm/v/@hugoalh/djb2a?label=@hugoalh/djb2a&labelColor=CB3837&logo=npm&logoColor=ffffff&style=flat "NPM: @hugoalh/djb2a")](https://www.npmjs.com/package/@hugoalh/djb2a)
 
-An ECMAScript (JavaScript & TypeScript) CLI and module to get the non-cryptographic hash of the data with algorithm DJB2a.
+An ECMAScript (JavaScript & TypeScript) module to get the non-cryptographic hash of the data with algorithm DJB2a.
 
 Currently, only 32 bits is supported.
 
@@ -81,23 +81,6 @@ Currently, only 32 bits is supported.
 > - For the full or prettier documentation, can visit via:
 >   - [Deno CLI `deno doc`](https://docs.deno.com/runtime/reference/cli/documentation_generator/)
 >   - [JSR](https://jsr.io/@hugoalh/djb2a)
-
-## 🧩 CLIs
-
-**Entrypoint:** `cli.js`/`cli.ts`
-
-- From argument; Output hex padding
-  ```ps1
-  djb2a {Data}
-  ```
-- From file; Output hex padding
-  ```ps1
-  djb2a --file {FilePath}
-  ```
-- From stdin; Output hex padding
-  ```ps1
-  djb2a --stdin
-  ```
 
 ## ✍️ Examples
 

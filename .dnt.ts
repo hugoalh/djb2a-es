@@ -8,20 +8,13 @@ await invokeDenoNodeJSTransformer({
 		"LICENSE.md",
 		"README.md"
 	],
-	entrypoints: [
-		...configJSR.getExports(),
-		{
-			executable: true,
-			name: "djb2a",
-			path: "./cli.ts"
-		}
-	],
+	entrypoints: configJSR.getExports(),
 	fixInjectedImports: true,
 	generateDeclarationMap: true,
 	metadata: {
 		name: configJSR.getName(),
 		version: configJSR.getVersion(),
-		description: "A CLI and module to get the non-cryptographic hash of the data with algorithm DJB2a.",
+		description: "A module to get the non-cryptographic hash of the data with algorithm DJB2a.",
 		keywords: [
 			"djb2a",
 			"hash"
