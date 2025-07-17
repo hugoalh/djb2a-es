@@ -70,7 +70,6 @@ Currently, only 32 bits is supported.
     hashBuffer(): Buffer;
     hashHex(): string;
     hashHexPadding(): string;
-    hashNumber(): number;
     update(data: DJB2aAcceptDataType): this;
     static fromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<DJB2a>;
   }
