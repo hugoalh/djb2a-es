@@ -64,18 +64,21 @@ Currently, only 32 bits is supported.
     hashBase16(): string;
     hashBase32Hex(): string;
     hashBase36(): string;
-    hashBase64(): string;
-    hashBase64URL(): string;
     hashBigInt(): bigint;
-    hashBuffer(): Buffer;
     hashHex(): string;
     hashHexPadding(): string;
+    hashUint8Array(): Uint8Array;
     update(data: DJB2aAcceptDataType): this;
-    static fromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<DJB2a>;
+    updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this>;
   }
   ```
 - ```ts
-  type DJB2aAcceptDataType = string | BigUint64Array | Uint8Array | Uint16Array | Uint32Array;
+  type DJB2aAcceptDataType =
+    | string
+    | BigUint64Array
+    | Uint8Array
+    | Uint16Array
+    | Uint32Array;
   ```
 
 > [!NOTE]

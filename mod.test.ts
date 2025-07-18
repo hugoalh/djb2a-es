@@ -49,6 +49,7 @@ Deno.test("Stream 1", {
 		read: true
 	}
 }, async () => {
-	using file = await Deno.open("./README.md");
-	console.log((await DJB2a.fromStream(file.readable)).hashHexPadding());
+	await using file = await Deno.open("./README.md");
+	const instance = await new DJB2a().updateFromStream(file.readable);
+	console.log(instance.hashHexPadding());
 });

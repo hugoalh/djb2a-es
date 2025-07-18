@@ -1,5 +1,9 @@
-import { Buffer } from "node:buffer";
-export type DJB2aAcceptDataType = string | BigUint64Array | Uint8Array | Uint16Array | Uint32Array;
+export type DJB2aAcceptDataType =
+	| string
+	| BigUint64Array
+	| Uint8Array
+	| Uint16Array
+	| Uint32Array;
 /**
  * Get the non-cryptographic hash of the data with algorithm DJB2a (32 bits).
  */
@@ -12,12 +16,11 @@ export class DJB2a {
 	#hashBase16: string | null = null;
 	#hashBase32Hex: string | null = null;
 	#hashBase36: string | null = null;
-	#hashBase64: string | null = null;
-	#hashBase64URL: string | null = null;
+	#hashUint8Array: Uint8Array | null = null;
 	#bin: bigint = 5381n;
 	/**
 	 * Initialize.
-	 * @param {DJB2aAcceptDataType} [data] Data. Can append later via the method {@linkcode DJB2a.update}.
+	 * @param {DJB2aAcceptDataType} [data] Data. Can append later via the method {@linkcode DJB2a.update} and {@linkcode DJB2a.updateFromStream}.
 	 */
 	constructor(data?: DJB2aAcceptDataType) {
 		if (typeof data !== "undefined") {
@@ -32,8 +35,7 @@ export class DJB2a {
 		this.#hashBase16 = null;
 		this.#hashBase32Hex = null;
 		this.#hashBase36 = null;
-		this.#hashBase64 = null;
-		this.#hashBase64URL = null;
+		this.#hashUint8Array = null;
 	}
 	/**
 	 * Whether the instance is freezed.
@@ -83,40 +85,11 @@ export class DJB2a {
 		return this.#hashBase36;
 	}
 	/**
-	 * Get the non-cryptographic hash of the data, in Base64.
-	 * @returns {string}
-	 */
-	hashBase64(): string {
-		this.#hashBase64 ??= this.hashBuffer().toString("base64");
-		return this.#hashBase64;
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in Base64URL.
-	 * @returns {string}
-	 */
-	hashBase64URL(): string {
-		this.#hashBase64URL ??= this.hashBuffer().toString("base64url");
-		return this.#hashBase64URL;
-	}
-	/**
 	 * Get the non-cryptographic hash of the data, in big integer.
 	 * @returns {bigint}
 	 */
 	hashBigInt(): bigint {
 		return this.hash();
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in big integer.
-	 * @returns {bigint}
-	 * @deprecated Use method {@linkcode DJB2a.hashBigInt} instead.
-	 */
-	hashBigInteger: () => bigint = this.hashBigInt;
-	/**
-	 * Get the non-cryptographic hash of the data, in Buffer.
-	 * @returns {Buffer}
-	 */
-	hashBuffer(): Buffer {
-		return Buffer.from(this.hashBase16(), "hex");
 	}
 	/**
 	 * Get the non-cryptographic hash of the data, in hex/hexadecimal without padding.
@@ -133,12 +106,22 @@ export class DJB2a {
 		return this.hashHex().padStart(8, "0");
 	}
 	/**
-	 * Get the non-cryptographic hash of the data, in number.
-	 * @returns {number}
-	 * @deprecated
+	 * Get the non-cryptographic hash of the data, in Uint8Array.
+	 * @returns {Uint8Array}
 	 */
-	hashNumber(): number {
-		return Number(this.hash());
+	hashUint8Array(): Uint8Array {
+		if (this.#hashUint8Array === null) {
+			const hex: string = this.hashHex();
+			const hexFmt: string = (hex.length % 2 === 0) ? hex : `0${hex}`;
+			const bytes: string[] = [];
+			for (let index: number = 0; index < hexFmt.length; index += 2) {
+				bytes.push(hexFmt.slice(index, index + 2));
+			}
+			this.#hashUint8Array = Uint8Array.from(bytes.map((byte: string): number => {
+				return Number.parseInt(byte, 16);
+			}));
+		}
+		return Uint8Array.from(this.#hashUint8Array);
 	}
 	/**
 	 * Append data.
@@ -154,16 +137,15 @@ export class DJB2a {
 		return this;
 	}
 	/**
-	 * Initialize from the readable stream.
+	 * Append data from the readable stream.
 	 * @param {ReadableStream<DJB2aAcceptDataType>} stream Readable stream.
-	 * @returns {Promise<DJB2a>}
+	 * @returns {Promise<this>}
 	 */
-	static async fromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<DJB2a> {
-		const instance: DJB2a = new this();
+	async updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this> {
 		for await (const chunk of stream) {
-			instance.update(chunk);
+			this.update(chunk);
 		}
-		return instance;
+		return this;
 	}
 }
 export default DJB2a;
