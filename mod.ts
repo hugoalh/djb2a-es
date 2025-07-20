@@ -142,7 +142,8 @@ export class DJB2a {
 	 * @returns {Promise<this>}
 	 */
 	async updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this> {
-		for await (const chunk of stream) {
+		const streamFmt: ReadableStream<string> = stream.pipeThrough(new TextEncoderStream()).pipeThrough(new TextDecoderStream());
+		for await (const chunk of streamFmt) {
 			this.update(chunk);
 		}
 		return this;
