@@ -149,7 +149,7 @@ export class DJB2a {
 			const {
 				done: end,
 				value
-			} = await reader.read();
+			}: ReadableStreamReadResult<DJB2aAcceptDataType> = await reader.read();
 			done = end;
 			if (typeof value === "undefined") {
 				continue;
