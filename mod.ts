@@ -130,9 +130,9 @@ export class DJB2a {
 	 */
 	update(data: DJB2aAcceptDataType): this {
 		this.#clearStorage();
-		const raw: string = (typeof data === "string") ? data : new TextDecoder().decode(data);
-		for (let index: number = 0; index < raw.length; index += 1) {
-			this.#bin = this.#bin * 33n ^ BigInt(raw.charCodeAt(index));
+		const dataFmt: string = (typeof data === "string") ? data : new TextDecoder().decode(data);
+		for (let index: number = 0; index < dataFmt.length; index += 1) {
+			this.#bin = this.#bin * 33n ^ BigInt(dataFmt.charCodeAt(index));
 		}
 		return this;
 	}
@@ -142,9 +142,24 @@ export class DJB2a {
 	 * @returns {Promise<this>}
 	 */
 	async updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this> {
-		const streamFmt: ReadableStream<string> = stream.pipeThrough(new TextEncoderStream()).pipeThrough(new TextDecoderStream());
-		for await (const chunk of streamFmt) {
-			this.update(chunk);
+		const reader: ReadableStreamDefaultReader<DJB2aAcceptDataType> = stream.getReader();
+		let done: boolean = false;
+		let textDecoder: TextDecoder | undefined;
+		while (!done) {
+			const {
+				done: end,
+				value
+			} = await reader.read();
+			done = end;
+			if (typeof value === "undefined") {
+				continue;
+			}
+			if (typeof value === "string") {
+				this.update(value);
+			} else {
+				textDecoder ??= new TextDecoder();
+				this.update(textDecoder.decode(value, { stream: !done }));
+			}
 		}
 		return this;
 	}
