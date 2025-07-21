@@ -138,7 +138,7 @@ export class DJB2a {
 	}
 	/**
 	 * Append data from the readable stream.
-	 * @param {ReadableStream<DJB2aAcceptDataType>} stream Readable stream.
+	 * @param {ReadableStream<DJB2aAcceptDataType>} stream Data from the readable stream.
 	 * @returns {Promise<this>}
 	 */
 	async updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this> {
