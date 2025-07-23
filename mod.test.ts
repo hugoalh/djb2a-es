@@ -21,7 +21,7 @@ Deno.test("Text 6", { permissions: "none" }, () => {
 Deno.test("Text 7", { permissions: "none" }, () => {
 	const instance = new DJB2a("hello");
 	deepStrictEqual(instance.hash(), 178056679n);
-	deepStrictEqual(instance.hashHexPadding(), "0A9CEDE7");
+	deepStrictEqual(instance.hashHex(), "0A9CEDE7");
 });
 Deno.test("Text 8", { permissions: "none" }, () => {
 	deepStrictEqual(new DJB2a("hello ").hash(), 1580903143n);

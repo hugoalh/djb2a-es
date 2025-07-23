@@ -62,11 +62,8 @@ Currently, only 32 bits is supported.
     freeze(): this;
     hash(): bigint;
     hashBase16(): string;
-    hashBase32Hex(): string;
-    hashBase36(): string;
     hashBigInt(): bigint;
     hashHex(): string;
-    hashHexPadding(): string;
     hashUint8Array(): Uint8Array;
     update(data: DJB2aAcceptDataType): this;
     updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this>;
@@ -89,6 +86,6 @@ Currently, only 32 bits is supported.
 ## ✍️ Examples
 
 - ```ts
-  new DJB2a("hello").hashHexPadding();
+  new DJB2a("hello").hashHex();
   //=> "0A9CEDE7"
   ```
