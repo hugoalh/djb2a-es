@@ -64,10 +64,9 @@ export class DJB2a {
 	hashUint8Array(): Uint8Array {
 		if (this.#hashUint8Array === null) {
 			const hex: string = this.hashHex();
-			const hexFmt: string = (hex.length % 2 === 0) ? hex : `0${hex}`;
 			const bytes: string[] = [];
-			for (let index: number = 0; index < hexFmt.length; index += 2) {
-				bytes.push(hexFmt.slice(index, index + 2));
+			for (let index: number = 0; index < hex.length; index += 2) {
+				bytes.push(hex.slice(index, index + 2));
 			}
 			this.#hashUint8Array = Uint8Array.from(bytes.map((byte: string): number => {
 				return Number.parseInt(byte, 16);
