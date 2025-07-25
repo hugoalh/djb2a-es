@@ -61,9 +61,11 @@ export class DJB2a {
 	 * @returns {string}
 	 */
 	hashHex(): string {
-		this.#hashHex ??= BigInt.asUintN(32, this.#bin).toString(16).toUpperCase().padStart(8, "0");
-		if (this.#hashHex.length !== 8) {
-			throw new Error(`Unexpected hash hex result \`${this.#hashHex}\`! Please submit a bug report.`);
+		if (this.#hashHex === null) {
+			this.#hashHex = BigInt.asUintN(32, this.#bin).toString(16).toUpperCase().padStart(8, "0");
+			if (this.#hashHex.length !== 8) {
+				throw new Error(`Unexpected hash hex result \`${this.#hashHex}\`! Please submit a bug report.`);
+			}
 		}
 		return this.#hashHex;
 	}
