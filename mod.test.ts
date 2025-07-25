@@ -8,13 +8,13 @@ Deno.test("Lock", { permissions: "none" }, () => {
 		new DJB2a().freeze().update("");
 	});
 });
-Deno.test("Text 1", { permissions: "none" }, () => {
+Deno.test("Direct 1", { permissions: "none" }, () => {
 	deepStrictEqual(new DJB2a("").hashHex(), "00001505");
 });
-Deno.test("Text 2", { permissions: "none" }, () => {
+Deno.test("Direct 2", { permissions: "none" }, () => {
 	deepStrictEqual(new DJB2a("🦄🌈").hashHex(), "587FFECB");
 });
-Deno.test("Text 3", { permissions: "none" }, () => {
+Deno.test("Direct 3", { permissions: "none" }, () => {
 	const instance = new DJB2a();
 	deepStrictEqual(instance.update("h").hashHex(), "0002B5CD");
 	deepStrictEqual(instance.update("e").hashHex(), "00596F08");
@@ -28,7 +28,7 @@ Deno.test("Text 3", { permissions: "none" }, () => {
 	deepStrictEqual(instance.update("l").hashHex(), "FFC7F301");
 	deepStrictEqual(instance.update("d").hashHex(), "F8C65345");
 });
-Deno.test("Text 4", { permissions: "none" }, () => {
+Deno.test("Direct 4", { permissions: "none" }, () => {
 	deepStrictEqual(new DJB2a("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.").hashHex(), "42E9CA59");
 });
 async function testerStream(filePath: string): Promise<void> {
