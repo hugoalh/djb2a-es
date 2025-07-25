@@ -12,8 +12,7 @@ export class DJB2a {
 		return "DJB2a";
 	}
 	#freezed: boolean = false;
-	#hash: bigint | null = null;
-	#hashBase16: string | null = null;
+	#hashHex: string | null = null;
 	#hashUint8Array: Uint8Array | null = null;
 	#bin: bigint = 5381n;
 	/**
@@ -24,14 +23,6 @@ export class DJB2a {
 		if (typeof data !== "undefined") {
 			this.update(data);
 		}
-	}
-	#clearStorage(): void {
-		if (this.#freezed) {
-			throw new Error(`Instance is freezed!`);
-		}
-		this.#hash = null;
-		this.#hashBase16 = null;
-		this.#hashUint8Array = null;
 	}
 	/**
 	 * Whether the instance is freezed.
@@ -49,34 +40,22 @@ export class DJB2a {
 		return this;
 	}
 	/**
-	 * Get the non-cryptographic hash of the data, in original format.
-	 * @returns {bigint}
+	 * Get the non-cryptographic hash of the data, in Uint8Array.
+	 * @returns {Uint8Array}
 	 */
-	hash(): bigint {
-		this.#hash ??= BigInt.asUintN(32, this.#bin);
-		return this.#hash;
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in Base16.
-	 * @returns {string}
-	 */
-	hashBase16(): string {
-		this.#hashBase16 ??= this.hashBigInt().toString(16).toUpperCase();
-		return this.#hashBase16;
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in big integer.
-	 * @returns {bigint}
-	 */
-	hashBigInt(): bigint {
-		return this.hash();
+	hash(): Uint8Array {
+		return this.hashUint8Array();
 	}
 	/**
 	 * Get the non-cryptographic hash of the data, in hexadecimal with padding.
 	 * @returns {string}
 	 */
 	hashHex(): string {
-		return this.hashBase16().padStart(8, "0");
+		this.#hashHex ??= BigInt.asUintN(32, this.#bin).toString(16).toUpperCase().padStart(8, "0");
+		if (this.#hashHex.length !== 8) {
+			throw new Error(`Unexpected hash hex result \`${this.#hashHex}\`! Please submit a bug report.`);
+		}
+		return this.#hashHex;
 	}
 	/**
 	 * Get the non-cryptographic hash of the data, in Uint8Array.
@@ -102,7 +81,11 @@ export class DJB2a {
 	 * @returns {this}
 	 */
 	update(data: DJB2aAcceptDataType): this {
-		this.#clearStorage();
+		if (this.#freezed) {
+			throw new Error(`Instance is freezed!`);
+		}
+		this.#hashHex = null;
+		this.#hashUint8Array = null;
 		const dataFmt: string = (typeof data === "string") ? data : new TextDecoder().decode(data);
 		for (let index: number = 0; index < dataFmt.length; index += 1) {
 			this.#bin = this.#bin * 33n ^ BigInt(dataFmt.charCodeAt(index));
