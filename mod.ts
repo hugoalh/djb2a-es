@@ -44,24 +44,6 @@ export class DJB2a {
 	 * @returns {Uint8Array}
 	 */
 	hash(): Uint8Array {
-		return this.hashUint8Array();
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in hexadecimal with padding.
-	 * @returns {string}
-	 */
-	hashHex(): string {
-		this.#hashHex ??= BigInt.asUintN(32, this.#bin).toString(16).toUpperCase().padStart(8, "0");
-		if (this.#hashHex.length !== 8) {
-			throw new Error(`Unexpected hash hex result \`${this.#hashHex}\`! Please submit a bug report.`);
-		}
-		return this.#hashHex;
-	}
-	/**
-	 * Get the non-cryptographic hash of the data, in Uint8Array.
-	 * @returns {Uint8Array}
-	 */
-	hashUint8Array(): Uint8Array {
 		if (this.#hashUint8Array === null) {
 			const hex: string = this.hashHex();
 			const bytes: string[] = [];
@@ -73,6 +55,17 @@ export class DJB2a {
 			}));
 		}
 		return Uint8Array.from(this.#hashUint8Array);
+	}
+	/**
+	 * Get the non-cryptographic hash of the data, in hexadecimal with padding.
+	 * @returns {string}
+	 */
+	hashHex(): string {
+		this.#hashHex ??= BigInt.asUintN(32, this.#bin).toString(16).toUpperCase().padStart(8, "0");
+		if (this.#hashHex.length !== 8) {
+			throw new Error(`Unexpected hash hex result \`${this.#hashHex}\`! Please submit a bug report.`);
+		}
+		return this.#hashHex;
 	}
 	/**
 	 * Append data.

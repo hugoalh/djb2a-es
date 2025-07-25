@@ -60,7 +60,6 @@ An ECMAScript (JavaScript & TypeScript) module to get the non-cryptographic hash
     freeze(): this;
     hash(): Uint8Array;
     hashHex(): string;
-    hashUint8Array(): Uint8Array;
     update(data: DJB2aAcceptDataType): this;
     updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this>;
   }
