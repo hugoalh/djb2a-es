@@ -2,9 +2,10 @@
 
 [**⚖️** MIT](./LICENSE.md)
 
-[![GitHub: hugoalh/djb2a-es](https://img.shields.io/github/v/release/hugoalh/djb2a-es?label=hugoalh/djb2a-es&labelColor=181717&logo=github&logoColor=ffffff&sort=semver&style=flat "GitHub: hugoalh/djb2a-es")](https://github.com/hugoalh/djb2a-es)
-[![JSR: @hugoalh/djb2a](https://img.shields.io/jsr/v/@hugoalh/djb2a?label=@hugoalh/djb2a&labelColor=F7DF1E&logo=jsr&logoColor=000000&style=flat "JSR: @hugoalh/djb2a")](https://jsr.io/@hugoalh/djb2a)
-[![NPM: @hugoalh/djb2a](https://img.shields.io/npm/v/@hugoalh/djb2a?label=@hugoalh/djb2a&labelColor=CB3837&logo=npm&logoColor=ffffff&style=flat "NPM: @hugoalh/djb2a")](https://www.npmjs.com/package/@hugoalh/djb2a)
+🔗
+[GitHub](https://github.com/hugoalh/djb2a-es)
+[JSR](https://jsr.io/@hugoalh/djb2a)
+[NPM](https://www.npmjs.com/package/@hugoalh/djb2a)
 
 An ECMAScript module to get the non-cryptographic hash of the data with algorithm DJB2a (32 bits).
 
