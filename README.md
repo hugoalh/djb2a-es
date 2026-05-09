@@ -4,8 +4,8 @@
 
 🔗
 [GitHub](https://github.com/hugoalh/djb2a-es)
-[JSR](https://jsr.io/@hugoalh/djb2a)
-[NPM](https://www.npmjs.com/package/@hugoalh/djb2a)
+● [JSR](https://jsr.io/@hugoalh/djb2a)
+● [NPM](https://www.npmjs.com/package/@hugoalh/djb2a)
 
 An ECMAScript module to get the non-cryptographic hash of the data with algorithm DJB2a (32 bits).
 
