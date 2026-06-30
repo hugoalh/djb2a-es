@@ -3,7 +3,8 @@
 [**⚖️** MIT](./LICENSE.md)
 
 🔗
-[GitHub](https://github.com/hugoalh/djb2a-es)
+[DistBoard @hugoalh](https://hugoalh.github.io/distboard/djb2a_ecmascript)
+● [GitHub](https://github.com/hugoalh/djb2a-es)
 ● [JSR](https://jsr.io/@hugoalh/djb2a)
 ● [NPM](https://www.npmjs.com/package/@hugoalh/djb2a)
 
