@@ -88,24 +88,8 @@ export class DJB2a {
 	 * @returns {Promise<this>}
 	 */
 	async updateFromStream(stream: ReadableStream<DJB2aAcceptDataType>): Promise<this> {
-		const reader: ReadableStreamDefaultReader<DJB2aAcceptDataType> = stream.getReader();
-		let done: boolean = false;
-		let textDecoder: TextDecoder | undefined;
-		while (!done) {
-			const {
-				done: end,
-				value
-			}: ReadableStreamReadResult<DJB2aAcceptDataType> = await reader.read();
-			done = end;
-			if (typeof value === "undefined") {
-				continue;
-			}
-			if (typeof value === "string") {
-				this.update(value);
-			} else {
-				textDecoder ??= new TextDecoder();
-				this.update(textDecoder.decode(value, { stream: !done }));
-			}
+		for await (const chunk of stream) {
+			this.update(chunk);
 		}
 		return this;
 	}
