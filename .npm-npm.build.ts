@@ -6,6 +6,9 @@ await invokeDenoNodeJSTransformer({
 		"LICENSE.md",
 		"README.md"
 	],
+	entrypointsExecutable: {
+		"djb2a": "./cli.ts"
+	},
 	//@ts-ignore Lazy type.
 	entrypointsScript: jsrManifest.exports,
 	generateDeclarationMap: true,

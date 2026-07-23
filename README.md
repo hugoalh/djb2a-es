@@ -40,6 +40,7 @@ This does not request any runtime permission.
 | **Name** | **Path** | **Description** |
 |:--|:--|:--|
 | `.` | `./mod.ts` | Default. |
+| `./cli` | `./cli.ts` | CLI. |
 
 > [!NOTE]
 > - Different runtimes have vary support for the sources and entrypoints, visit the runtime documentation for more information.
@@ -76,9 +77,25 @@ This does not request any runtime permission.
 >   - [Deno CLI `deno doc`](https://docs.deno.com/runtime/reference/cli/doc/)
 >   - [JSR](https://jsr.io/@hugoalh/djb2a)
 
+## 🧩 CLIs
+
+- ```powershell
+  djb2a $Context
+  ```
+- ```powershell
+  djb2a --file $FilePath
+  <# 🔀 Unordered Positions: `--file`, `$FilePath` #>
+  ```
+- ```powershell
+  djb2a --stdin
+  ```
+
 ## ✍️ Examples
 
 - ```ts
   new DJB2a("hello").hashHex();
   //=> "0A9CEDE7"
+  ```
+- ```powershell
+  djb2a 'hello'
   ```
