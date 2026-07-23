@@ -90,6 +90,11 @@ This does not request any runtime permission.
   djb2a --stdin
   ```
 
+| **Argument** | **Type** | **Description** |
+|:--|:--|:--|
+| `file` | `switch` | Whether the resource is from file. |
+| `stdin` | `switch` | Whether the resource is from standard stream input. |
+
 ## ✍️ Examples
 
 - ```ts
