@@ -24,10 +24,10 @@ This does not request any runtime permission.
 
 ## #️⃣ Entrypoints
 
-| **Name** | **Path** | **Description** |
-|:--|:--|:--|
-| `.` | `./mod.ts` | Default. |
-| `./cli` | `./cli.ts` | CLI. |
+| **Type** | **Name** | **Path** | **Description** |
+|:--|:--|:--|:--|
+| API | `.` | `./mod.ts` | Default. |
+| CLI | `./cli` | `./cli.ts` | Default. |
 
 > [!NOTE]
 > - Different runtimes have vary support for the entrypoints, visit the runtime documentation for more information.
