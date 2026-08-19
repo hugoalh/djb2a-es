@@ -83,7 +83,7 @@ This does not request any runtime permission.
 ## ✍️ Examples
 
 - ```ts
-  new DJB2a("hello").hashHex();
+  new DJB2a().update("hello").hashHex();
   //=> "0A9CEDE7"
   ```
 - ```powershell
