@@ -9,10 +9,10 @@ Deno.test("Lock", { permissions: "none" }, () => {
 	});
 });
 Deno.test("Direct 1", { permissions: "none" }, () => {
-	deepStrictEqual(new DJB2a("").hashHex(), "00001505");
+	deepStrictEqual(new DJB2a().update("").hashHex(), "00001505");
 });
 Deno.test("Direct 2", { permissions: "none" }, () => {
-	deepStrictEqual(new DJB2a("🦄🌈").hashHex(), "587FFECB");
+	deepStrictEqual(new DJB2a().update("🦄🌈").hashHex(), "587FFECB");
 });
 Deno.test("Direct 3", { permissions: "none" }, () => {
 	const instance = new DJB2a();
@@ -29,11 +29,11 @@ Deno.test("Direct 3", { permissions: "none" }, () => {
 	deepStrictEqual(instance.update("d").hashHex(), "F8C65345");
 });
 Deno.test("Direct 4", { permissions: "none" }, () => {
-	deepStrictEqual(new DJB2a("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.").hashHex(), "42E9CA59");
+	deepStrictEqual(new DJB2a().update("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.").hashHex(), "42E9CA59");
 });
 async function testerStream(filePath: string): Promise<void> {
 	const sampleText = await Deno.readTextFile(filePath);
-	const hashFromText = new DJB2a(sampleText).hash();
+	const hashFromText = new DJB2a().update(sampleText).hash();
 	await using sampleFile = await Deno.open(filePath);
 	const hashFromStream = (await new DJB2a().updateFromStream(sampleFile.readable)).hash();
 	deepStrictEqual(hashFromText, hashFromStream);
