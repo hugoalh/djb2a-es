@@ -21,8 +21,14 @@ export class DJB2a {
 	#bin: bigint = 5381n;
 	/**
 	 * Initialize.
-	 * @param {DJB2aAcceptDataType} [data] Data. Can append later via the method {@linkcode DJB2a.update} and {@linkcode DJB2a.updateFromStream}.
 	 */
+	constructor();
+	/**
+	 * Initialize.
+	 * @param {DJB2aAcceptDataType} data Data.
+	 * @deprecated Append data via the method {@linkcode DJB2a.update} or {@linkcode DJB2a.updateFromStream} instead.
+	 */
+	constructor(data: DJB2aAcceptDataType);
 	constructor(data?: DJB2aAcceptDataType) {
 		if (typeof data !== "undefined") {
 			this.update(data);

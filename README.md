@@ -40,7 +40,6 @@ This does not request any runtime permission.
 
 - ```ts
   class DJB2a {
-    constructor(data?: DJB2aAcceptDataType);
     get freezed(): boolean;
     freeze(): this;
     hash(): Uint8Array;
