@@ -20,21 +20,6 @@ export class DJB2a {
 	#hashUint8Array: Uint8Array | null = null;
 	#bin: bigint = 5381n;
 	/**
-	 * Initialize.
-	 */
-	constructor();
-	/**
-	 * Initialize.
-	 * @param {DJB2aAcceptDataType} data Data.
-	 * @deprecated Append data via the method {@linkcode DJB2a.update} or {@linkcode DJB2a.updateFromStream} instead.
-	 */
-	constructor(data: DJB2aAcceptDataType);
-	constructor(data?: DJB2aAcceptDataType) {
-		if (typeof data !== "undefined") {
-			this.update(data);
-		}
-	}
-	/**
 	 * Whether the instance is freezed.
 	 * @returns {boolean}
 	 */
