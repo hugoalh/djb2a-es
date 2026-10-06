@@ -27,6 +27,18 @@ export class DJB2a {
 		return this.#freezed;
 	}
 	/**
+	 * Clone the instance.
+	 * @returns {DJB2a}
+	 */
+	clone(): DJB2a {
+		const instance: DJB2a = new DJB2a();
+		instance.#freezed = this.#freezed;
+		instance.#hashHex = this.#hashHex;
+		instance.#hashUint8Array = this.#hashUint8Array;
+		instance.#bin = this.#bin;
+		return instance;
+	}
+	/**
 	 * Freeze the instance to prevent any further update.
 	 * @returns {this}
 	 */

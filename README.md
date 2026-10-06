@@ -41,6 +41,7 @@ This does not request any runtime permission.
 - ```ts
   class DJB2a {
     get freezed(): boolean;
+    clone(): DJB2a;
     freeze(): this;
     hash(): Uint8Array;
     hashHex(): string;
