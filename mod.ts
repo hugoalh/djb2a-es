@@ -5,8 +5,40 @@ if (typeof Uint8Array.fromHex === "undefined") {
 export type DJB2aAcceptDataType =
 	| string
 	| Uint8Array;
+export type DJB2aBitsSize =
+	| 32
+	| 64;
+const bitsSizes: readonly DJB2aBitsSize[] = [/* UNIQUE */
+	32,
+	64
+];
+export type DJB2aInterpretMode =
+	| "bytes"
+	| "unicode-code-points"
+	| "utf16-code-units";
+const interpretModes: readonly DJB2aInterpretMode[] = [/* UNIQUE */
+	"bytes",
+	"unicode-code-points",
+	"utf16-code-units"
+];
+export interface DJB2aOptions {
+	/**
+	 * Data interpret mode of the DJB2a.
+	 * 
+	 * - **`bytes`:** UTF-8 encoded bytes.
+	 * - **`unicode-code-points`:**: Unicode code points.
+	 * - **`utf16-code-units`:** UTF-16 code units; Used in the previous versions.
+	 * @default {"byte"}
+	 */
+	interpret?: DJB2aInterpretMode;
+	/**
+	 * Bits size of the DJB2a.
+	 * @default {32}
+	 */
+	size?: DJB2aBitsSize;
+}
 /**
- * Get the non-cryptographic hash of the data with algorithm DJB2a (32 bits).
+ * Get the non-cryptographic hash of the data with algorithm DJB2a.
  */
 export class DJB2a {
 	get [Symbol.toStringTag](): string {
@@ -14,7 +46,27 @@ export class DJB2a {
 	}
 	#freezed: boolean = false;
 	#hashHex: string | null = null;
+	#interpret: DJB2aInterpretMode;
+	#size: DJB2aBitsSize;
 	#bin: bigint = 5381n;
+	/**
+	 * Initialize.
+	 * @param {DJB2aOptions} [options={}] Options.
+	 */
+	constructor(options: DJB2aOptions = {}) {
+		const {
+			interpret = "bytes",
+			size = 32
+		}: DJB2aOptions = options;
+		if (!interpretModes.includes(interpret)) {
+			throw new RangeError(`\`${interpret}\` is not a valid DJB2a hash data interpret mode! Only accept these values: ${interpretModes.join(", ")}.`);
+		}
+		if (!bitsSizes.includes(size)) {
+			throw new RangeError(`\`${size}\` is not a valid DJB2a hash bits size! Only accept these values: ${bitsSizes.join(", ")}.`);
+		}
+		this.#interpret = interpret;
+		this.#size = size;
+	}
 	/**
 	 * Whether the instance is freezed.
 	 * @returns {boolean}
@@ -30,6 +82,8 @@ export class DJB2a {
 		const instance: DJB2a = new DJB2a();
 		instance.#freezed = this.#freezed;
 		instance.#hashHex = this.#hashHex;
+		instance.#interpret = this.#interpret;
+		instance.#size = this.#size;
 		instance.#bin = this.#bin;
 		return instance;
 	}
@@ -54,8 +108,8 @@ export class DJB2a {
 	 */
 	hashHex(): string {
 		if (this.#hashHex === null) {
-			const result: string = BigInt.asUintN(32, this.#bin).toString(16).toUpperCase().padStart(8, "0");
-			if (result.length !== 8) {
+			const result: string = BigInt.asUintN(this.#size, this.#bin).toString(16).toUpperCase().padStart(this.#size / 4, "0");
+			if (result.length !== this.#size / 4) {
 				throw new Error(`Unexpected hash hex result \`${result}\`! Please submit a bug report.`);
 			}
 			this.#hashHex = result;
@@ -72,9 +126,21 @@ export class DJB2a {
 			throw new Error(`Instance is freezed!`);
 		}
 		this.#hashHex = null;
-		const raw: string = (typeof data === "string") ? data : new TextDecoder().decode(data);
-		for (let index: number = 0; index < raw.length; index += 1) {
-			this.#bin = this.#bin * 33n ^ BigInt(raw.charCodeAt(index));
+		if (this.#interpret === "unicode-code-points") {
+			const raw: string = (typeof data === "string") ? data : new TextDecoder().decode(data);
+			for (const character of raw) {
+				this.#bin = ((this.#bin << 5n) + this.#bin) ^ BigInt(character.codePointAt(0)!);
+			}
+		} else if (this.#interpret === "utf16-code-units") {
+			const raw: string = (typeof data === "string") ? data : new TextDecoder().decode(data);
+			for (let index: number = 0; index < raw.length; index += 1) {
+				this.#bin = ((this.#bin << 5n) + this.#bin) ^ BigInt(raw.charCodeAt(index));
+			}
+		} else {
+			const bytes: Uint8Array = (typeof data === "string") ? new TextEncoder().encode(data) : data;
+			for (const byte of bytes) {
+				this.#bin = ((this.#bin << 5n) + this.#bin) ^ BigInt(byte);
+			}
 		}
 		return this;
 	}

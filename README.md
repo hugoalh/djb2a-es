@@ -8,7 +8,12 @@
 ● [JSR](https://jsr.io/@hugoalh/djb2a)
 ● [NPM](https://www.npmjs.com/package/@hugoalh/djb2a)
 
-An ECMAScript module to get the non-cryptographic hash of the data with algorithm DJB2a (32 bits).
+An ECMAScript module to get the non-cryptographic hash of the data with algorithm DJB2a.
+
+## 🌟 Features
+
+- Support bits size of 32 and 64.
+- Support data interpret mode of bytes, Unicode code points and UTF-16 code units.
 
 ## 🎯 Runtime Targets
 
@@ -40,6 +45,7 @@ This does not request any runtime permission.
 
 - ```ts
   class DJB2a {
+    constructor(options?: DJB2aOptions);
     get freezed(): boolean;
     clone(): DJB2a;
     freeze(): this;
@@ -53,6 +59,12 @@ This does not request any runtime permission.
   type DJB2aAcceptDataType =
     | string
     | Uint8Array;
+  ```
+- ```ts
+  interface DJB2aOptions {
+    interpret?: DJB2aInterpretMode;
+    size?: DJB2aBitsSize;
+  }
   ```
 
 > [!NOTE]
@@ -75,12 +87,14 @@ This does not request any runtime permission.
 | **Argument** | **Type** | **Description** |
 |:--|:--|:--|
 | `file` | `switch` | Whether the resource is from file. |
+| `interpret` | `DJB2aInterpretMode = "bytes"` | Data interpret mode of the DJB2a. |
+| `size` | `DJB2aBitsSize = 32` | Bits size of the DJB2a. |
 | `stdin` | `switch` | Whether the resource is from standard stream input. |
 
 ## ✍️ Examples
 
 - ```ts
-  new DJB2a().update("hello").hashHex();
+  new DJB2a({ interpret: "utf16-code-units" }).update("hello").hashHex();
   //=> "0A9CEDE7"
   ```
 - ```powershell
