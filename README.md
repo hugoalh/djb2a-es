@@ -75,13 +75,13 @@ This does not request any runtime permission.
 ## 🧩 CLIs
 
 - ```powershell
-  djb2a $Context
+  djb2a $Context [--interpret $Interpret] [--size $Size]
   ```
 - ```powershell
-  djb2a --file $FilePath
+  djb2a --file $FilePath [--interpret $Interpret] [--size $Size]
   ```
 - ```powershell
-  djb2a --stdin
+  djb2a --stdin [--interpret $Interpret] [--size $Size]
   ```
 
 | **Argument** | **Type** | **Description** |
