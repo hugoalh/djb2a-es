@@ -137,7 +137,7 @@ export class DJB2a {
 				this.#bin = ((this.#bin << 5n) + this.#bin) ^ BigInt(raw.charCodeAt(index));
 			}
 		} else {
-			const bytes: Uint8Array = (typeof data === "string") ? new TextEncoder().encode(data) : data;
+			const bytes: Uint8Array = (typeof data === "string") ? new TextEncoder().encode(data) : structuredClone(data);
 			for (const byte of bytes) {
 				this.#bin = ((this.#bin << 5n) + this.#bin) ^ BigInt(byte);
 			}
